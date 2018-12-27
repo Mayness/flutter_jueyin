@@ -23,6 +23,10 @@ if (flutterVersionName == null) {
 
 apply plugin: 'com.android.application'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
+// 需要加入如下
+def keystorePropertiesFile = rootProject.file("key.properties")
+def keystoreProperties = new Properties()
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
 android {
     compileSdkVersion 27
@@ -33,21 +37,28 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.example.jueyin"
-        minSdkVersion 16
-        targetSdkVersion 27
-        versionCode flutterVersionCode.toInteger()
-        versionName flutterVersionName
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        applicationId "com.example.jueyin"  // APPID
+        minSdkVersion 16    // 可运行的最低Android平台，对应API级别标识符
+        targetSdkVersion 27 // 指定运行的目标API级别, 用于限制针对低级别的API的元素和行为
+        versionCode 1   // 内部版本号
+        versionName "1.0"   // 对外公布的本本号
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"  // 对于单元测试运行的Runner
     }
-
-    buildTypes {
+    // 加入如下
+    signingConfigs {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig signingConfigs.debug
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
         }
     }
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+        }
+    }
+
 }
 
 flutter {

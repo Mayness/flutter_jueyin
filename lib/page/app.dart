@@ -15,8 +15,8 @@ class App extends StatelessWidget{
           builder: (BuildContext context, store) {
             return MaterialApp(
               title: '倔银',
-              theme: store.state.themeData,
-              home: store.state.userInfo.username != '' ? IndexPage() : LoginPage(),
+              theme: store.state.themeGroup.themeData,
+              home: store.state.userInfo.username == '' ? LoginPage() : IndexPage(),
             );
           },
           converter: (Store store) => store,

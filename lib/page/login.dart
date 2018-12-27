@@ -105,7 +105,7 @@ class _LoginPageState extends State<LoginPage> {
     final form = formKey.currentState;
     if (form.validate()) {
       form.save();
-      StoreProvider.of(context).dispatch(UpdateUserAction(
+      StoreProvider.of(context).dispatch(UserAction(
         User(username: _username)
       ));
     }

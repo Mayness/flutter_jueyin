@@ -3,8 +3,7 @@ import 'package:redux/redux.dart';
 import './page/app.dart';
 import './common/model/user.dart';
 import './redux/base.dart';
-
-// import 'package:flutter/rendering.dart';
+import './common/util/themeConfig.dart';
 
 void main() {
   // debugPaintSizeEnabled = true;
@@ -12,12 +11,7 @@ void main() {
     appReducer,
     initialState: BaseState(
       userInfo: User(username: ''),
-      themeData: ThemeData(
-        primarySwatch: Colors.blue,
-        // brightness: Brightness.dark,
-        // primaryColor: Colors.lightBlue[800],
-        // accentColor: Colors.cyan[600],
-      )
+      themeGroup: ThemeConfig.day,
     ),
   );
   runApp(App(store: store));
