@@ -17,6 +17,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: Key('登录页面'),
       appBar: AppBar(
         title: Text('登录'),
         actions: <Widget>[
@@ -73,6 +74,7 @@ class _LoginPageState extends State<LoginPage> {
     final List<String> params = [ '用户名', '密码' ];
     final formField = params.map((item) {
       return TextFormField(
+        key: Key(item),
         validator: (value) => value == '' ? '请输入您的$item' : null,
         onSaved: (val) => item == '用户名' ? _username = val : _passwd = val,
         decoration: InputDecoration(
@@ -116,6 +118,7 @@ class _LoginPageState extends State<LoginPage> {
     Color mainColor = type == '注册账号' ? Colors.blue : Colors.white;
     Color subColor = type == '注册账号' ? Colors.white : Colors.blue;
     return RaisedButton(
+      key: Key(type),
       onPressed: cb,
       child: Container(
         child: Text(type),

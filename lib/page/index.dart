@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import '../common/util/navigation_icon_view.dart';
 import '../common/util/iconText.dart';
+import '../common/util/appBarType.dart';
 import '../component/side.dart';
 
 import './home/home.dart';
 import './list/listPage.dart';
 import './my_location/myLocation.dart';
+
+import './list/search.dart';
 
 
 class IndexPage extends StatefulWidget {
@@ -16,23 +19,24 @@ class IndexPage extends StatefulWidget {
 class _IndexPageState extends State<IndexPage> with TickerProviderStateMixin {
   List<NavigationIconView> _navigationViews;  // 下方导航集合
   List<Widget> _pageList; // 展示页面列表
-  Widget _currentPage;  // 当前展示页
-  int _currentIndex = 0; // 当前展示页下标
-  List<IconText> _navigations = [ // 导航图标列表
-    IconText('首页', Icons.home),
-    IconText('列表', Icons.list),
-    IconText('我的', Icons.my_location),
-  ];
+  int _currentIndex = 0;
+  List<IconText> _navigations;
+  TextEditingController controller; // 头部输入框控制器
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
+  void initState() {
+    super.initState();
+     // 当前展示页下标
+    _navigations = [ // 导航图标列表
+      IconText('首页', Icons.home, AppBarType.home),
+      IconText('列表', Icons.list, AppBarType.list(toSearchPage)),
+      IconText('我的', Icons.my_location, AppBarType.myLocation),
+    ];
     _navigationViews = _navigations.map((item) => _buildNavigationIcon(item.text, item.icon)).toList();
     _pageList = <Widget> [
       Home(),
       ListPage(),
       MyLocation(),
     ];
-    _currentPage = _pageList[ _currentIndex ];
   }
 
   @override
@@ -46,22 +50,13 @@ class _IndexPageState extends State<IndexPage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
       return Scaffold(
-        appBar: AppBar(
-          actions: <Widget>[
-            Container(
-              margin: EdgeInsets.only(right: 15),
-              child: IconButton(
-                icon: Icon(Icons.person_add),
-                onPressed: () => {},
-              ),
-            )
-          ],
-        ),
-        drawer: Drawer(
+        key: Key('首页'),
+        appBar: _navigations[ _currentIndex ].type,
+        drawer: _currentIndex == 0 ? Drawer(
           child: Side(),
-        ),
+        ) : null,
         body: Container(
-          child: _currentPage,
+          child: _pageList[ _currentIndex ],
         ),
         bottomNavigationBar: bottomNavigationBar(),
       );
@@ -76,7 +71,6 @@ class _IndexPageState extends State<IndexPage> with TickerProviderStateMixin {
       onTap: (int index) {
         setState(() {
           _currentIndex = index;
-          _currentPage = _pageList[ _currentIndex ];
         });
       },
     );
@@ -88,5 +82,27 @@ class _IndexPageState extends State<IndexPage> with TickerProviderStateMixin {
       title: Text(text),
       vsync: this,
     );
+  }
+
+  void toSearchPage() {
+    Navigator.of(context).push(PageRouteBuilder(
+      opaque: false,
+      pageBuilder: (_, __, ___) {
+        return SearchPage();
+      },
+      transitionDuration: Duration(milliseconds: 200),
+      transitionsBuilder: (_, animation, __, child) {
+        return FadeTransition(
+          opacity: animation,
+          child: SlideTransition(
+            position: Tween<Offset>(
+              begin: Offset(1, 0),
+              end: Offset.zero,
+            ).animate(animation),
+            child: child,
+          ),
+        );
+      }
+    ));
   }
 }

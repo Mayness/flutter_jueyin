@@ -34,9 +34,9 @@ class _NewsListState extends State<NewsList> with AutomaticKeepAliveClientMixin 
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
-      onRefresh: loadData,
+      onRefresh: loadData, // 类型必须为Future<Null>类型
       child: FutureBuilder(
-        future: get(widget.newsType), // 类型必须为Future
+        future: get(widget.newsType),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           switch(snapshot.connectionState) {
             case ConnectionState.none:
@@ -48,6 +48,7 @@ class _NewsListState extends State<NewsList> with AutomaticKeepAliveClientMixin 
               if(snapshot.hasError) {
                 return Text('Error: ${snapshot.error}');
               } else {
+                // 内部无须调用setState
                 return _createListView(snapshot);
               }
           }

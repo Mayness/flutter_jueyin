@@ -89,6 +89,7 @@ class _SideState extends State<Side> {
                     IconButton(
                       icon: Icon(Icons.exit_to_app),
                       onPressed: () {
+                        Navigator.pop(context); // 状态改变 控件需要手动关闭
                         StoreProvider.of(context).dispatch(UserAction(
                           User(username: '')
                         ));
