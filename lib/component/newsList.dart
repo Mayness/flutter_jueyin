@@ -3,6 +3,8 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:convert';
 
+import '../config.dart';
+
 class NewsList extends StatefulWidget {
   final String newsType;
   NewsList(this.newsType);
@@ -16,7 +18,7 @@ class _NewsListState extends State<NewsList> with AutomaticKeepAliveClientMixin 
   bool get wantKeepAlive => true;
 
   final String _url = 'http://v.juhe.cn/toutiao/index';
-  final String _key = 'f61659eae81af7df4c2f06c1f8a7b4db';
+  final String _key = ConfigData.requestInfo[ 'key' ];
 
   Future<String> get(String type) async {
     var httpClient = HttpClient();
