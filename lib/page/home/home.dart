@@ -144,9 +144,9 @@ class _HomeState extends State<Home> {
                   Text(title, style: TextStyle(fontSize: 16, height: .8, color: Theme.of(context).textTheme.body1.color)),
                   Container(
                     margin: EdgeInsets.only(top: 5, bottom: 5),
-                    child: Text(auth, style: TextStyle(color: Theme.of(context).textTheme.body2.color))
+                    child: Text(auth, style: Theme.of(context).textTheme.body2)
                   ),
-                  Text(DateTime.now().toString().substring(0, 16), style: TextStyle(color: Theme.of(context).textTheme.body2.color)),
+                  Text(DateTime.now().toString().substring(0, 16), style: Theme.of(context).textTheme.body2),
                 ],
               ),
             ),

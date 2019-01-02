@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:redux/redux.dart';
 
 class SearchPage extends StatefulWidget {
   @override
@@ -24,6 +26,15 @@ class _SearchPageState extends State<SearchPage> {
   }
   @override
   Widget build(BuildContext context) {
+    return StoreConnector(
+      builder: (_, theme) {
+        return _buildSearch(theme);
+      },
+      converter: (Store store) => store.state.themeGroup,
+    );
+  }
+
+  Widget _buildSearch(theme) {
     return Scaffold(
       appBar: AppBar(
         title: TextField(
@@ -39,7 +50,7 @@ class _SearchPageState extends State<SearchPage> {
               )
             ),
             filled: true,
-            fillColor: Color(0xFFA6D8FF),
+            fillColor: theme.otherData.inputTheme.fillColor,
           ),
           onSubmitted: _inputSubmit,
         ),
@@ -61,14 +72,14 @@ class _SearchPageState extends State<SearchPage> {
                 case ConnectionState.waiting:
                   return searchList == [] ? Center(
                       child: CircularProgressIndicator(),
-                    ) : listBuild();
+                    ) : listBuild(theme);
                 default:
                   if(snapshot.hasError) {
                     return Text('Error: ${snapshot.error}');
                   } else {
                     storage = snapshot.data;
-                    searchList = storage.getStringList('searchList');
-                    return listBuild();
+                    searchList = storage.getStringList('searchList') ?? [];
+                    return listBuild(theme);
                   }
                   break;
               }
@@ -76,9 +87,8 @@ class _SearchPageState extends State<SearchPage> {
           ),
         ],
       ),
-    );
+    ); 
   }
-
   void _inputSubmit(String text) {
     if (text.isNotEmpty) {
       searchList.add(text);
@@ -95,21 +105,19 @@ class _SearchPageState extends State<SearchPage> {
     });
   }
 
-  Widget listBuild() {
+  Widget listBuild(theme) {
     return Expanded(
       child: ListView.builder(
         itemBuilder: (BuildContext context, int index) {
           return Container(
             decoration: BoxDecoration(
-              border: Border(bottom: BorderSide(
-                color: Color(0xAACCCCCC)
-              ))
+              border: Border(bottom: theme.otherData.cardBoard),
             ),
             child: ListTile(
-              leading: Icon(Icons.av_timer),
-              title: Text(searchList[ index ]),
+              leading: Icon(Icons.av_timer, color: Theme.of(context).textTheme.body2.color),
+              title: Text(searchList[ index ], style: Theme.of(context).textTheme.body2),
               trailing: IconButton(
-                icon: Icon(Icons.close),
+                icon: Icon(Icons.close, color: Theme.of(context).textTheme.body2.color),
                 onPressed: () => _removeItem(index),
               ),
             )

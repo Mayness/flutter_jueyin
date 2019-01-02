@@ -89,8 +89,20 @@ class _NewsListState extends State<NewsList> with AutomaticKeepAliveClientMixin 
             child: Text(newsInfo[ 'title' ]),
             padding: EdgeInsets.all(10),
           ),
-          Container(
-            child: _imageGrop(newsInfo),
+          Column(
+            children: <Widget>[
+              _imageGrop(newsInfo),
+              Padding(
+                padding: EdgeInsets.fromLTRB(10, 8, 10, 8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(newsInfo[ 'author_name' ], style: Theme.of(context).textTheme.body2),
+                    Text(newsInfo[ 'date' ], style: Theme.of(context).textTheme.body2),
+                  ],
+                ),
+              ),
+            ],
           ),
         ],
       ),

@@ -8,6 +8,8 @@ class MyLocation extends StatefulWidget {
 class _MyLocationState extends State<MyLocation> {
   @override
   Widget build(BuildContext context) {
-    return Text('333');
+    return Center(
+      child: Text('个人中心'),
+    );
   }
 }

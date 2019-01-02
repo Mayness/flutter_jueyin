@@ -21,6 +21,7 @@ class ThemeConfig {
         ),
         body2: TextStyle(
           color: Colors.black38,  // 注解文字的颜色
+          fontSize: 14,
         ),
         display1: TextStyle(
           color: Colors.blue,   // 底部导航栏高亮颜色
@@ -30,13 +31,20 @@ class ThemeConfig {
         color: Color(0xFF898989),
       ),
       dividerColor: Color(0x33000000),
+      // inputDecorationTheme: InputDecorationTheme(  // 输入框的样式
+      //   filled: true,
+      //   fillColor: Color(0xFFA6D8FF),
+      // ),
       // highlightColor: Colors.red, // 点击高亮的颜色
       // splashColor: Colors.red,  // 点击墨水动画的颜色
     ),
-    otherData: OtherData(
+    otherData: OtherData( // 其他配置的颜色
       cardShadow: BoxShadow(offset: Offset(0, 1), color: Color(0xFFCCCCCC)),
       cardBoard: BorderSide(color: Color(0xFFCCCCCC), width: .1, style: BorderStyle.solid),
-    ), // 其他配置的颜色
+      inputTheme: InputDecorationTheme(  // 输入框的样式
+        fillColor: Color(0xFFA6D8FF),
+      ),
+    ),
   );
 
   static final ThemeGroup dark = ThemeGroup(
@@ -57,6 +65,7 @@ class ThemeConfig {
         ),
         body2: TextStyle(
           color: Color(0x99E8E8E8),
+          fontSize: 14,
         ),
         display1: TextStyle(
           color: Color(0xFFE8E8E8),
@@ -69,7 +78,10 @@ class ThemeConfig {
     ),
     otherData: OtherData(
       cardShadow: BoxShadow(offset: Offset(0, 1), color: Color(0x223f3f3f)),
-      cardBoard: BorderSide(color: Color(0xFF3f3f3f), width: .1, style: BorderStyle.solid),
+      cardBoard: BorderSide(color: Color(0xFF3f3f3f), width: 1, style: BorderStyle.solid),
+      inputTheme: InputDecorationTheme(  // 输入框的样式
+        fillColor: Color(0xFFCCCCCC),
+      ),
     ),
   );
 }
@@ -86,10 +98,12 @@ class OtherData {
   Color mainFontColor;  // 文字主色
   BoxShadow cardShadow;  // 卡片shadow样式
   BorderSide cardBoard;  // 卡片边框样式
+  InputDecorationTheme inputTheme;  // 输入框的样式
   OtherData({
     this.mainBackgroundColor,
     this.mainFontColor,
     this.cardShadow,
     this.cardBoard,
+    this.inputTheme,
   });
 }

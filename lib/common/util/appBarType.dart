@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:redux/redux.dart';
+
 class AppBarType {
   static final AppBar home = AppBar(
     actions: <Widget>[
@@ -18,21 +21,26 @@ class AppBarType {
         // 替代子元素的onTap事件
         behavior: HitTestBehavior.translucent,
         onTap: cb,
-        child: TextField(
-          decoration: InputDecoration(
-            enabled: false,
-            hintText: '搜索更多...',
-            prefixIcon: Icon(Icons.search),
-            border: UnderlineInputBorder(
-              borderSide: BorderSide.none,
-              borderRadius: BorderRadius.all(
-                Radius.circular(3.0),
-              )
-            ),
-            filled: true,
-            fillColor: Color(0xFFA6D8FF),
-          ),
-        ),
+        child: StoreConnector(
+          builder: (_, Store store) {
+            return TextField(
+              decoration: InputDecoration(
+                enabled: false,
+                hintText: '搜索更多...',
+                prefixIcon: Icon(Icons.search),
+                border: UnderlineInputBorder(
+                  borderSide: BorderSide.none,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(3.0),
+                  )
+                ),
+                filled: true,
+                fillColor: store.state.themeGroup.otherData.inputTheme.fillColor,
+              ),
+            );
+          },
+          converter: (Store store) => store,
+        )
       )
     );
   }
