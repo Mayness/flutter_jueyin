@@ -23,7 +23,6 @@ class _SideState extends State<Side> {
       )
     );
   }
-  
   Widget _side(Store store) {
     final state = store.state;
     return Container(
@@ -97,7 +96,7 @@ class _SideState extends State<Side> {
                     ),
                     Text('注销'),
                   ],
-                )
+                ),
               ],
             ),
           ),

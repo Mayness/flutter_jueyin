@@ -8,7 +8,7 @@ import './home/home.dart';
 import './list/listPage.dart';
 import './my_location/myLocation.dart';
 
-import './list/search.dart';
+import '../router/route.dart';
 
 
 class IndexPage extends StatefulWidget {
@@ -88,7 +88,7 @@ class _IndexPageState extends State<IndexPage> with TickerProviderStateMixin {
     Navigator.of(context).push(PageRouteBuilder(
       opaque: false,
       pageBuilder: (_, __, ___) {
-        return SearchPage();
+        return AppRoute.getPage('page://search', {});
       },
       transitionDuration: Duration(milliseconds: 200),
       transitionsBuilder: (_, animation, __, child) {

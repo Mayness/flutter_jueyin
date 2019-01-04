@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
+import 'package:annotation_route/route.dart';
 
+@ARoute(url: 'page://search')
 class SearchPage extends StatefulWidget {
+  SearchPage(this.option);
+  dynamic option;
   @override
   _SearchPageState createState() => _SearchPageState();
 }
