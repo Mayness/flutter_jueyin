@@ -27,7 +27,7 @@ class ThemeConfig {
           color: Colors.blue,   // 底部导航栏高亮颜色
         ),
       ),
-      iconTheme: IconThemeData(
+      iconTheme: IconThemeData( // icon 样式
         color: Color(0xFF898989),
       ),
       dividerColor: Color(0x33000000),
@@ -79,7 +79,7 @@ class ThemeConfig {
     otherData: OtherData(
       cardShadow: BoxShadow(offset: Offset(0, 1), color: Color(0x223f3f3f)),
       cardBoard: BorderSide(color: Color(0xFF3f3f3f), width: 1, style: BorderStyle.solid),
-      inputTheme: InputDecorationTheme(  // 输入框的样式
+      inputTheme: InputDecorationTheme(
         fillColor: Color(0xFFCCCCCC),
       ),
     ),

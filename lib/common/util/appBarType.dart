@@ -45,8 +45,6 @@ class AppBarType {
     );
   }
 
-  static final AppBar myLocation = AppBar(
-    title: Text('个人中心'),
-  );
+  static final AppBar myLocation = null;
 }
 

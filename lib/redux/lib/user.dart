@@ -3,7 +3,7 @@ import '../../common/model/user.dart';
 
 // 用户信息存储
 final UsernameReducer = combineReducers<User>([
-  TypedReducer<User, UserAction>(_updateUser)
+  TypedReducer<User, UserAction>(_updateUser),
 ]);
 
 User _updateUser(User user, action) {

@@ -81,7 +81,7 @@ class _LoginPageState extends State<LoginPage> {
           hintText: '请输入您的$item',
           labelText: item,
         ),
-        obscureText: item == '密码' ? true : false,
+        obscureText: item == '密码' ? true : false, // 密文显示
       );
     });
     textGroup.addAll(

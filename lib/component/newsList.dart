@@ -65,6 +65,7 @@ class _NewsListState extends State<NewsList> with AutomaticKeepAliveClientMixin 
     datas = res[ 'result' ] != null ? res[ 'result' ][ 'data' ] : [];
     if (datas.length > 0) {
       return ListView.builder(
+        physics: AlwaysScrollableScrollPhysics(),
         padding: EdgeInsets.all(16),
         itemCount: datas.length,
         itemBuilder: (BuildContext context, int index) {
